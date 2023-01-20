@@ -12,7 +12,8 @@ import application.PrimaryPanel;
 
 public class ThreadBack extends Thread {
 	
-    JLabel candidateImg = PrimaryPanel.candidateImg;
+    JLabel office = PrimaryPanel.office;
+	JLabel candidateImg = PrimaryPanel.candidateImg;
     JLabel viceImg = PrimaryPanel.viceImg;
     JLabel candidateName = PrimaryPanel.candidateName;
     JLabel politicalParty = PrimaryPanel.politicalParty;
@@ -34,7 +35,8 @@ public class ThreadBack extends Thread {
 	
 	public void run() {
 		try {	        	
-        	Thread.sleep(tempo);	    		   
+        	Thread.sleep(tempo);
+        	office.setText("PRESIDENTE");
         	tabbedPane.setEnabledAt(1, false);
         	tabbedPane.setSelectedIndex(0);
         	titleNumber.setText("");

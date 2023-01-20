@@ -4,13 +4,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import entities.Candidate;
+import entities.President;
 
-public class VotingResults extends Candidate {
+public class PresidentVotingResults extends President {
 	
 	public static void Results() {
 		
-		Candidate choice = new Candidate();
+		President choice = new President();
 		
 		vote = choice.getVote();
 		confirm = choice.getConfirm();
@@ -47,21 +47,24 @@ public class VotingResults extends Candidate {
         }
 
 		System.out.println(
-				"Total de Votos: " + confirm
-				+ "\n12 - CIRO GOMES (PDT) = " + ciroGomes
-				+ "\n13 - LULA (PT) = " + lula
-				+ "\n14 - ROBERTO JEFFERSON (PTB) = " + robertoJefferson
-				+ "\n15 - SIMONE TEBET (MDB) = " + simoneTebet
-				+ "\n16 - VERA (PSTU) = " + vera
-				+ "\n21 - SOFIA MANZANO (PCB) = " + sofiaManzano
-				+ "\n22 - JAIR BOLSONARO (PL) = " + jairBolsonaro
-				+ "\n27 - CONSTITUINTE EYMAEL (DC) = " + eymael
-				+ "\n30 - FELIPE D'AVILA (NOVO) = " + davila
-				+ "\n44 - SORAYA THRONICKE (UNIÃO) = " + sorayaThronicke
-				+ "\n80 - LÉO PÉRICLES (UP) = " + leoPericles
-				+ "\n90 - PABLO MARÇAL (PROS) = " + pabloMarcal
-				+ "\nVotos BRANCOS = " + blank
-				+ "\nVotos NULOS = " + voteNull
+				"Total de Votos para Presidente: ......" + confirm
+				+"\n"
+				+ "\n12 - CIRO GOMES (PDT) = .............." + ciroGomes
+				+ "\n13 - LULA (PT) = ....................." + lula
+				+ "\n14 - ROBERTO JEFFERSON (PTB) = ......." + robertoJefferson
+				+ "\n15 - SIMONE TEBET (MDB) = ............" + simoneTebet
+				+ "\n16 - VERA (PSTU) = ..................." + vera
+				+ "\n21 - SOFIA MANZANO (PCB) = ..........." + sofiaManzano
+				+ "\n22 - JAIR BOLSONARO (PL) = ..........." + jairBolsonaro
+				+ "\n27 - CONSTITUINTE EYMAEL (DC) = ......" + eymael
+				+ "\n30 - FELIPE D'AVILA (NOVO) = ........." + davila
+				+ "\n44 - SORAYA THRONICKE (UNIÃO) = ......" + sorayaThronicke
+				+ "\n80 - LÉO PÉRICLES (UP) = ............." + leoPericles
+				+ "\n90 - PABLO MARÇAL (PROS) = ..........." + pabloMarcal
+				+ "\nVotos BRANCOS = ......................" + blank
+				+ "\nVotos NULOS = ........................" + voteNull
+				+ "\n\n"
+				+ "_______________________________________"
 				+ "\n\n"
 		);
 	}
@@ -71,11 +74,12 @@ public class VotingResults extends Candidate {
 		
 		FileWriter results;
 		try {
-			results = new FileWriter("D:\\JAVA\\Temp\\ws-eclipse\\Electronic Voting Machine Rev. 2\\archive\\RESULTS.txt");
+			results = new FileWriter("D:\\JAVA\\Temp\\ws-eclipse\\Electronic Voting Machine Rev. 3\\archive\\RESULTS.txt");
 			PrintWriter gravarResults = new PrintWriter(results);
 			
 			gravarResults.println(
-					"Total de Votos:" + "....................." + confirm
+					"Total de Votos para Presidente:" + "....." + confirm
+					+"\n"
 					+ "\n12 - CIRO GOMES (PDT):" +  ".............." + ciroGomes
 					+ "\n13 - LULA (PT):" +   "....................." + lula
 					+ "\n14 - ROBERTO JEFFERSON (PTB):" +  "......." + robertoJefferson
@@ -90,6 +94,8 @@ public class VotingResults extends Candidate {
 					+ "\n90 - PABLO MARÇAL (PROS):" +  "..........." + pabloMarcal
 					+ "\nVotos BRANCOS:" +  "......................" + blank
 					+ "\nVotos NULOS:" +  "........................" + voteNull
+					+ "\n\n"
+					+ "_____________________________________"
 					+ "\n\n"
 					);
 

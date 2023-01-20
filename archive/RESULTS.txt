@@ -1,17 +1,34 @@
-Total de Votos:.....................41
-12 - CIRO GOMES (PDT):..............4
-13 - LULA (PT):.....................7
+Total de Votos para Presidente:.....0
+
+12 - CIRO GOMES (PDT):..............0
+13 - LULA (PT):.....................0
 14 - ROBERTO JEFFERSON (PTB):.......0
-15 - SIMONE TEBET (MDB):............5
-16 - VERA (PSTU):...................1
-21 - SOFIA MANZANO (PCB):...........1
-22 - JAIR BOLSONARO (PL):...........14
+15 - SIMONE TEBET (MDB):............0
+16 - VERA (PSTU):...................0
+21 - SOFIA MANZANO (PCB):...........0
+22 - JAIR BOLSONARO (PL):...........0
 27 - CONSTITUINTE EYMAEL (DC):......0
 30 - FELIPE D'AVILA (NOVO):.........0
-44 - SORAYA THRONICKE (UNIÃO):......3
+44 - SORAYA THRONICKE (UNIÃO):......0
 80 - LÉO PÉRICLES (UP):.............0
 90 - PABLO MARÇAL (PROS):...........0
-Votos BRANCOS:......................4
-Votos NULOS:........................2
+Votos BRANCOS:......................0
+Votos NULOS:........................0
+
+_____________________________________
 
 
+Total de Votos para Governador:.....0
+
+10 - TARCÍSIO (REPUBLICANOS):.......0
+12 - ELVIS CEZAR (PDT):.............0
+13 - FERNANDO HADDAD (PT):..........0
+16 - ALTINO (PSTU):.................0
+21 - GABRIEL COLOMBO (PCB):.........0
+27 - ANTONIO JORGE (DC):............0
+29 - EDSON DORTA (PCO):.............0
+30 - VINICIUS POIT (NOVO):..........0
+45 - RODRIGO GARCIA (PSDB):.........0
+80 - CAROL VIGLIAR (UP):............0
+Votos BRANCOS:......................0
+Votos NULOS:........................0

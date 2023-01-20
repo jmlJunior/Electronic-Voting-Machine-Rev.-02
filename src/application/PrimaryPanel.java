@@ -22,16 +22,20 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import entities.Candidate;
+import entities.Governor;
+import entities.President;
+import entities.VoterChoice;
 import resources.FindVoters;
+import resources.PresidentVotingResults;
+import resources.GovernorVotingResults;
 import resources.ThreadBack;
+import resources.ThreadChangeOffice;
 import resources.ThreadClear;
-import resources.VotingResults;
 
 public class PrimaryPanel extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane,boardMemberPanel,votingPanel;
+	private JPanel contentPane, boardMemberPanel, votingPanel;
 
 	public static JTabbedPane tabbedPane;
 	public static JEditorPane titleNumber;
@@ -39,7 +43,7 @@ public class PrimaryPanel extends JFrame {
 
 	public static JTextField tenBox, oneBox;
 
-	public static JLabel candidateName, viceName, candidateImg, viceImg, politicalParty, end;
+	public static JLabel office, candidateName, viceName, candidateImg, viceImg, politicalParty, end;
 
 	/**
 	 * Launch the application.
@@ -72,45 +76,45 @@ public class PrimaryPanel extends JFrame {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 689, 398);
 		contentPane.add(tabbedPane);
-		
+
 		/**
-		setting the board member panel
-		**/	
+		 * setting the board member panel
+		 **/
 		boardMemberPanel = new JPanel();
 		tabbedPane.addTab("Painel do Mesário", null, boardMemberPanel, null);
 		boardMemberPanel.setLayout(null);
-		
+
 		JLabel title = new JLabel("N\u00FAmero do T\u00EDtulo de Eleitor");
 		title.setFont(new Font("Tahoma", Font.BOLD, 12));
 		title.setBounds(43, 33, 187, 14);
 		boardMemberPanel.add(title);
-		
+
 		titleNumber = new JEditorPane();
 		titleNumber.setBounds(43, 58, 204, 20);
 		boardMemberPanel.add(titleNumber);
 		titleNumber.requestFocus();
-		
+
 		JLabel password = new JLabel("SENHA do MES\u00C1RIO - Liberar Vota\u00E7\u00E3o");
 		password.setFont(new Font("Tahoma", Font.BOLD, 12));
 		password.setBounds(43, 120, 240, 14);
 		boardMemberPanel.add(password);
-		
+
 		passwordField = new JPasswordField();
 		passwordField.setBounds(43, 145, 204, 20);
 		boardMemberPanel.add(passwordField);
-		
+
 		JPanel edge = new JPanel();
 		edge.setBorder(new LineBorder(new Color(0, 0, 0), 3));
 		edge.setBounds(24, 21, 371, 245);
 		boardMemberPanel.add(edge);
-		
+
 		JLabel electoralJustice = new JLabel("");
 		Image img = new ImageIcon(this.getClass().getResource("/Justiça Eleitoral - Brasão.jpg")).getImage()
-				                                 .getScaledInstance(230, 245, Image.SCALE_SMOOTH);
+				.getScaledInstance(230, 245, Image.SCALE_SMOOTH);
 		electoralJustice.setIcon(new ImageIcon(img));
 		electoralJustice.setBounds(420, 21, 230, 245);
 		boardMemberPanel.add(electoralJustice);
-		
+
 		JButton btnResult = new JButton("PRINT");
 		btnResult.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -120,10 +124,11 @@ public class PrimaryPanel extends JFrame {
 					passwordField.setText("");
 					passwordField.requestFocus();
 				} else {
-				    VotingResults.PrintResults();
-				    JOptionPane.showMessageDialog(null, 
-						   "Resultado de Urna gerado com sucesso no Diretório D:\\JAVA\\Temp\\ws-eclipse\\Electronic Voting Machine\\archive\\!!!");
-				    passwordField.setText("");
+					PresidentVotingResults.PrintResults();
+					GovernorVotingResults.setResults();
+					JOptionPane.showMessageDialog(null,
+							"Resultado de Urna gerado com sucesso no Diretório D:\\JAVA\\Temp\\ws-eclipse\\Electronic Voting Machine\\archive\\!!!");
+					passwordField.setText("");
 				}
 			}
 		});
@@ -131,7 +136,7 @@ public class PrimaryPanel extends JFrame {
 		btnResult.setBackground(Color.WHITE);
 		btnResult.setBounds(347, 288, 86, 36);
 		boardMemberPanel.add(btnResult);
-		
+
 		JButton btnClear = new JButton("CORRIGE");
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -144,7 +149,7 @@ public class PrimaryPanel extends JFrame {
 		btnClear.setBackground(Color.ORANGE);
 		btnClear.setBounds(443, 288, 94, 36);
 		boardMemberPanel.add(btnClear);
-		
+
 		JButton btnEnter = new JButton("CONFIRMA");
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -157,16 +162,16 @@ public class PrimaryPanel extends JFrame {
 				if (titleNumber.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "O campo TÍTULO DE ELEITOR deve ser preenchido!");
 				}
-				if (!titleNumber.getText().equals("") && senha.equals("123")) {					
+				if (!titleNumber.getText().equals("") && senha.equals("123")) {
 					/**
-					thread to check the names of voters registered
-					**/
-					FindVoters treadFv = new FindVoters ("Find");
+					 * thread to check the names of voters registered
+					 **/
+					FindVoters treadFv = new FindVoters("Find");
 					treadFv.start();
 
 					tabbedPane.setEnabledAt(1, true);
 					tabbedPane.setSelectedIndex(1);
-				    tenBox.requestFocus();
+					tenBox.requestFocus();
 				}
 			}
 		});
@@ -176,31 +181,34 @@ public class PrimaryPanel extends JFrame {
 		boardMemberPanel.add(btnEnter);
 
 		/**
-		end of board member panel settings
-		
-		*********************************************************************************************************************************************
-		
-		setting the voting panel
-		**/
-		
-		Candidate voting = new Candidate();
-		//Candidate setImage = new Candidate();
-		
+		 * end of board member panel settings
+		 *********************************************************************************************************************************************
+		 * 
+		 * 
+		 * setting the voting panel
+		 **/
+
+		President voting = new President();
+		Governor votingg = new Governor();
+		VoterChoice setNumber = new VoterChoice();
+		// Candidate setImage = new Candidate();
+
 		votingPanel = new JPanel();
 		tabbedPane.addTab("Painle de Votação", null, votingPanel, null);
 		votingPanel.setLayout(null);
 		tabbedPane.setEnabledAt(1, false);
-		
+
 		JLabel head = new JLabel("SEU VOTO PARA");
 		head.setFont(new Font("Tahoma", Font.BOLD, 12));
 		head.setBounds(43, 33, 100, 14);
 		votingPanel.add(head);
-		
-		JLabel office = new JLabel("PRESIDENTE");
+
+		office = new JLabel("PRESIDENTE");
+		office.setHorizontalAlignment(SwingConstants.CENTER);
 		office.setFont(new Font("Calibri", Font.BOLD, 22));
-		office.setBounds(100, 79, 120, 23);
+		office.setBounds(80, 79, 150, 23);
 		votingPanel.add(office);
-		
+
 		JLabel number = new JLabel("N\u00FAmero:");
 		number.setFont(new Font("Tahoma", Font.BOLD, 10));
 		number.setBounds(43, 123, 46, 14);
@@ -213,14 +221,14 @@ public class PrimaryPanel extends JFrame {
 		tenBox.setBounds(120, 105, 33, 55);
 		votingPanel.add(tenBox);
 		tenBox.requestFocus();
-		
+
 		oneBox = new JTextField();
 		oneBox.setHorizontalAlignment(SwingConstants.CENTER);
 		oneBox.setFont(new Font("Tahoma", Font.PLAIN, 38));
 		oneBox.setColumns(10);
 		oneBox.setBounds(155, 105, 33, 55);
 		votingPanel.add(oneBox);
-		
+
 		JLabel name = new JLabel("Nome:");
 		name.setFont(new Font("Tahoma", Font.BOLD, 12));
 		name.setBounds(43, 205, 46, 14);
@@ -230,44 +238,44 @@ public class PrimaryPanel extends JFrame {
 		group.setFont(new Font("Tahoma", Font.BOLD, 12));
 		group.setBounds(43, 230, 60, 14);
 		votingPanel.add(group);
-		
+
 		candidateName = new JLabel("");
 		candidateName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		candidateName.setBounds(88, 204, 310, 14);
 		votingPanel.add(candidateName);
-		
+
 		politicalParty = new JLabel("");
 		politicalParty.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		politicalParty.setBounds(100, 230, 94, 14);
+		politicalParty.setBounds(100, 230, 120, 14);
 		votingPanel.add(politicalParty);
-		
+
 		candidateImg = new JLabel("");
 		candidateImg.setFont(new Font("Arial", Font.BOLD, 65));
 		candidateImg.setBounds(278, 21, 120, 160);
 		votingPanel.add(candidateImg);
-		
+
 		end = new JLabel("");
 		end.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		end.setBounds(108, 171, 112, 30);
 		votingPanel.add(end);
-		
+
 		viceName = new JLabel("");
 		viceName.setHorizontalAlignment(SwingConstants.RIGHT);
 		viceName.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		viceName.setBounds(159, 246, 169, 14);
 		votingPanel.add(viceName);
-		
+
 		viceImg = new JLabel("");
 		viceImg.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		viceImg.setHorizontalAlignment(SwingConstants.RIGHT);
 		viceImg.setBounds(338, 185, 60, 75);
 		votingPanel.add(viceImg);
-		
+
 		edge = new JPanel();
 		edge.setBorder(new LineBorder(new Color(0, 0, 0), 3));
 		edge.setBounds(10, 11, 401, 265);
 		votingPanel.add(edge);
-		
+
 		JLabel instructions = new JLabel("Aperte a tecla");
 		instructions.setFont(new Font("Tahoma", Font.BOLD, 11));
 		instructions.setToolTipText("");
@@ -283,14 +291,14 @@ public class PrimaryPanel extends JFrame {
 		orange.setFont(new Font("Tahoma", Font.BOLD, 11));
 		orange.setBounds(30, 321, 298, 14);
 		votingPanel.add(orange);
-		
+
 		JLabel electoralJusticeCoat = new JLabel("");
 		Image img1 = new ImageIcon(this.getClass().getResource("/Justiça Eleitoral.jpg")).getImage()
-				                                  .getScaledInstance(180, 68, Image.SCALE_SMOOTH);
+				.getScaledInstance(180, 68, Image.SCALE_SMOOTH);
 		electoralJusticeCoat.setIcon(new ImageIcon(img1));
 		electoralJusticeCoat.setBounds(445, 33, 180, 68);
 		votingPanel.add(electoralJusticeCoat);
-		
+
 		JButton btn1 = new JButton("1");
 		btn1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -306,6 +314,7 @@ public class PrimaryPanel extends JFrame {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("1");
 					voting.SetImage();
+					votingg.SetImageGov();
 				}
 			}
 		});
@@ -328,6 +337,7 @@ public class PrimaryPanel extends JFrame {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("2");
 					voting.SetImage();
+					votingg.SetImageGov();
 				}
 			}
 		});
@@ -350,6 +360,7 @@ public class PrimaryPanel extends JFrame {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("3");
 					voting.SetImage();
+					votingg.SetImageGov();
 				}
 			}
 		});
@@ -373,6 +384,7 @@ public class PrimaryPanel extends JFrame {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("4");
 					voting.SetImage();
+					votingg.SetImageGov();
 				}
 			}
 		});
@@ -395,6 +407,7 @@ public class PrimaryPanel extends JFrame {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("5");
 					voting.SetImage();
+					votingg.SetImageGov();
 				}
 			}
 		});
@@ -417,6 +430,7 @@ public class PrimaryPanel extends JFrame {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("6");
 					voting.SetImage();
+					votingg.SetImageGov();
 				}
 			}
 		});
@@ -439,6 +453,7 @@ public class PrimaryPanel extends JFrame {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("7");
 					voting.SetImage();
+					votingg.SetImageGov();
 				}
 			}
 		});
@@ -461,6 +476,7 @@ public class PrimaryPanel extends JFrame {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("8");
 					voting.SetImage();
+					votingg.SetImageGov();
 				}
 			}
 		});
@@ -482,6 +498,7 @@ public class PrimaryPanel extends JFrame {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("9");
 					voting.SetImage();
+					votingg.SetImageGov();
 				}
 			}
 		});
@@ -504,30 +521,31 @@ public class PrimaryPanel extends JFrame {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("0");
 					voting.SetImage();
+					votingg.SetImageGov();
 				}
 			}
 		});
 		btn0.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btn0.setBounds(516, 246, 39, 30);
 		votingPanel.add(btn0);
-	
+
 		JButton btnCorrige = new JButton("CORRIGE");
 		btnCorrige.setBackground(Color.ORANGE);
 		btnCorrige.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!candidateImg.getText().equals("FIM")) {
-				    Image img = new ImageIcon(this.getClass().getResource("")).getImage()
-				    		                                 .getScaledInstance(120, 160,Image.SCALE_SMOOTH);
-				    tenBox.setText("");
-				    oneBox.setText("");
-				    candidateImg.setIcon(new ImageIcon(img));
-				    viceImg.setIcon(new ImageIcon(img));
-				    candidateImg.setText("");
-				    viceName.setText("");
-				    candidateName.setText("");
-				    politicalParty.setText("");
-				    end.setText("");
-				    tenBox.requestFocus();
+					Image img = new ImageIcon(this.getClass().getResource("")).getImage().getScaledInstance(120, 160,
+							Image.SCALE_SMOOTH);
+					tenBox.setText("");
+					oneBox.setText("");
+					candidateImg.setIcon(new ImageIcon(img));
+					viceImg.setIcon(new ImageIcon(img));
+					candidateImg.setText("");
+					viceName.setText("");
+					candidateName.setText("");
+					politicalParty.setText("");
+					end.setText("");
+					tenBox.requestFocus();
 				}
 			}
 		});
@@ -539,15 +557,25 @@ public class PrimaryPanel extends JFrame {
 		btnWhite.setBackground(Color.WHITE);
 		btnWhite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!candidateImg.getText().equals("FIM")) {
+				if (office.getText().equals("PRESIDENTE")) {
 					voting.setVote(111);
-					VotingResults.Results();
-				    ThreadClear clear = new ThreadClear("Clear");
-				    clear.start();
-				    ThreadBack back = new ThreadBack("Back", 7000);
-				    back.start();
+					PresidentVotingResults.Results();
+					ThreadChangeOffice change = new ThreadChangeOffice("Change");
+					change.start();
+
+					office.setText("GOVERNADOR");
+
+				} else {
+					if (!candidateImg.getText().equals("FIM")) {
+						votingg.setVote(111);
+						GovernorVotingResults.Results();
+						ThreadClear clear = new ThreadClear("Clear");
+						clear.start();
+						ThreadBack back = new ThreadBack("Back", 7000);
+						back.start();
+					}
 				}
-		    }			
+			}
 		});
 		btnWhite.setFont(new Font("Tahoma", Font.BOLD, 10));
 		btnWhite.setBounds(367, 299, 86, 36);
@@ -556,24 +584,32 @@ public class PrimaryPanel extends JFrame {
 		JButton btnConfirm = new JButton("CONFIRMA");
 		btnConfirm.setBackground(Color.GREEN);
 		btnConfirm.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
-				if ((!tenBox.getText().equals("")) && (!oneBox.getText().equals(""))) {
-					voting.CountVotes();
-					VotingResults.Results();
-					ThreadClear clear = new ThreadClear("clear");
+			public void actionPerformed(ActionEvent e) {
+				if ((!tenBox.getText().equals("")) && (!oneBox.getText().equals("")) && (office.getText().equals("PRESIDENTE"))) {
+					setNumber.SetVote();
+					voting.CountPresidentVotes();
+					PresidentVotingResults.Results();
+					ThreadChangeOffice change = new ThreadChangeOffice("Change");
+					change.start();
+					office.setText("GOVERNADOR");
+				} else if ((!tenBox.getText().equals("")) && (!oneBox.getText().equals("")) && (office.getText().equals("GOVERNADOR"))) {
+					votingg.CountGovernorVotes();
+					GovernorVotingResults.Results();
+					ThreadClear clear = new ThreadClear("Clear");
 					clear.start();
-    		    }
-				ThreadBack back = new ThreadBack("Back", 7000);
-				back.start();
+				
+					ThreadBack back = new ThreadBack("Back", 7000);
+					back.start();
+				}
 			}
 		});
 		btnConfirm.setFont(new Font("Tahoma", Font.BOLD, 10));
 		btnConfirm.setBounds(567, 290, 93, 45);
 		votingPanel.add(btnConfirm);
-		
+
 		/**
-		end of voting panel settings
-		**/		
-		
+		 * end of voting panel settings
+		 **/
+
 	}
 }

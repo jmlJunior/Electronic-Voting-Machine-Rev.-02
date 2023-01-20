@@ -25,7 +25,7 @@ public class FindVoters extends Thread {
 		String titleNumber = PrimaryPanel.titleNumber.getText();
 
 		List<Voters> listOfVoted = new ArrayList<>();
-		String path = "D:\\JAVA\\Temp\\ws-eclipse\\Electronic Voting Machine Rev. 2\\archive\\VotersSummary.txt";
+		String path = "D:\\JAVA\\Temp\\ws-eclipse\\Electronic Voting Machine Rev. 3\\archive\\VotersSummary.txt";
 		try (BufferedReader brVoted = new BufferedReader(new FileReader(path))) {
 			String votedLine = brVoted.readLine();
 			while (votedLine != null) {
@@ -45,7 +45,7 @@ public class FindVoters extends Thread {
 		}
 
 		List<Voters> listOfVoters = new ArrayList<>();
-		String votersRoster = "D:\\JAVA\\Temp\\ws-eclipse\\Electronic Voting Machine Rev. 2\\archive\\Voters.csv";
+		String votersRoster = "D:\\JAVA\\Temp\\ws-eclipse\\Electronic Voting Machine Rev. 3\\archive\\Voters.csv";
 
 		try (BufferedReader brVoters = new BufferedReader(new FileReader(votersRoster))) {
 			String votersLine = brVoters.readLine();
@@ -69,7 +69,7 @@ public class FindVoters extends Thread {
 			}
 			
 			for (Voters i : listOfVoters) {
-				String newPath = "D:\\JAVA\\Temp\\ws-eclipse\\Electronic Voting Machine Rev. 2\\archive\\VotersSummary.txt";
+				String newPath = "D:\\JAVA\\Temp\\ws-eclipse\\Electronic Voting Machine Rev. 3\\archive\\VotersSummary.txt";
 				String[] lines = new String[] { i.getTitle() + "," + i.getName() };
 				try (BufferedWriter bw = new BufferedWriter(new FileWriter(newPath, true))) {
 					for (String newLines : lines) {

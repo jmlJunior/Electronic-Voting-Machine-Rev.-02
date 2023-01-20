@@ -8,9 +8,8 @@ import javax.swing.JTextField;
 
 import application.PrimaryPanel;
 
-public class ThreadClear extends Thread {
+public class ThreadChangeOffice extends Thread {
 	
-	JLabel office = PrimaryPanel.office;
 	JLabel candidateImg = PrimaryPanel.candidateImg;
     JLabel viceImg = PrimaryPanel.viceImg;
     JLabel viceName = PrimaryPanel.viceName;
@@ -22,7 +21,7 @@ public class ThreadClear extends Thread {
     
 	public String name;
 	
-	public ThreadClear(String name) {
+	public ThreadChangeOffice(String name) {
 		this.name = name;
 	}
 	
@@ -31,15 +30,11 @@ public class ThreadClear extends Thread {
                                                  .getScaledInstance(120, 160, Image.SCALE_SMOOTH);
 	    candidateImg.setIcon(new ImageIcon(img));
 	    viceImg.setIcon(new ImageIcon(img));
-	    office.setText("");
-	    candidateImg.setText("FIM");
 	    viceName.setText("");
 	    candidateName.setText("");
 	    politicalParty.setText("");
-	    tenBox.setEditable(false);
-	    oneBox.setEditable(false);
 	    tenBox.setText("");
         oneBox.setText("");
-        end.setText("VOTOU");   
+        tenBox.requestFocus(); 
 	}
 }

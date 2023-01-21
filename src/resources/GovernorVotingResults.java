@@ -8,12 +8,13 @@ import entities.Governor;
 
 public class GovernorVotingResults extends Governor {
 	
+	public static int confirm, nullVote, blank;
+	
 	public static void Results() {
 		
 		Governor choice = new Governor();
 		
 		vote = choice.getVote();
-		confirm = choice.getConfirm();
 		tarcisio = choice.gettarcisio();
         elvisCezar = choice.getelvisCezar();
         haddad = choice.gethaddad();
@@ -24,8 +25,6 @@ public class GovernorVotingResults extends Governor {
         viniciusPoit = choice.getviniciusPoit();
         rodrigoGarcia = choice.getrodrigoGarcia();
         carolVigliar = choice.getcarolVigliar();
-        voteNull = choice.getVoteNull();
-        blank = choice.getBlank();
 		
 		switch (vote) {
 		    case 10: tarcisio++; confirm ++; break;
@@ -39,7 +38,7 @@ public class GovernorVotingResults extends Governor {
 	        case 45: rodrigoGarcia++; confirm ++; break;
 	        case 80: carolVigliar++; confirm ++; break;
 	        case 111: blank++; confirm++; break;
-	        default: voteNull++; confirm ++; break;
+	        default: nullVote++; confirm ++; break;
         }
 
 		System.out.println(
@@ -56,7 +55,7 @@ public class GovernorVotingResults extends Governor {
 				+ "\n45 - RODRIGO GARCIA (PSDB) = ........." + rodrigoGarcia
 				+ "\n80 - CAROL VIGLIAR (UP) = ............" + carolVigliar
 				+ "\nVotos BRANCOS = ......................" + blank
-				+ "\nVotos NULOS = ........................" + voteNull
+				+ "\nVotos NULOS = ........................" + nullVote
 				+ "\n\n"
 		);
 	}
@@ -83,7 +82,7 @@ public class GovernorVotingResults extends Governor {
 					+ "\n45 - RODRIGO GARCIA (PSDB):........." + rodrigoGarcia
 					+ "\n80 - CAROL VIGLIAR (UP):............" + carolVigliar
 					+ "\nVotos BRANCOS:......................" + blank
-					+ "\nVotos NULOS:........................" + voteNull
+					+ "\nVotos NULOS:........................" + nullVote
 					);
 
 			        results.close();

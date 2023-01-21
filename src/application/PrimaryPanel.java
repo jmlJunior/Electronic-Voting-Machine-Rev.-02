@@ -127,7 +127,7 @@ public class PrimaryPanel extends JFrame {
 					PresidentVotingResults.PrintResults();
 					GovernorVotingResults.setResults();
 					JOptionPane.showMessageDialog(null,
-							"Resultado de Urna gerado com sucesso no Diretório D:\\JAVA\\Temp\\ws-eclipse\\Electronic Voting Machine\\archive\\!!!");
+					"Resultado de Urna gerado com sucesso no Diretório D:\\JAVA\\Temp\\ws-eclipse\\Electronic Voting Machine\\archive\\!!!");
 					passwordField.setText("");
 				}
 			}
@@ -188,10 +188,9 @@ public class PrimaryPanel extends JFrame {
 		 * setting the voting panel
 		 **/
 
-		President voting = new President();
+		President votingp = new President();
 		Governor votingg = new Governor();
 		VoterChoice setNumber = new VoterChoice();
-		// Candidate setImage = new Candidate();
 
 		votingPanel = new JPanel();
 		tabbedPane.addTab("Painle de Votação", null, votingPanel, null);
@@ -294,7 +293,7 @@ public class PrimaryPanel extends JFrame {
 
 		JLabel electoralJusticeCoat = new JLabel("");
 		Image img1 = new ImageIcon(this.getClass().getResource("/Justiça Eleitoral.jpg")).getImage()
-				.getScaledInstance(180, 68, Image.SCALE_SMOOTH);
+				                                  .getScaledInstance(180, 68, Image.SCALE_SMOOTH);
 		electoralJusticeCoat.setIcon(new ImageIcon(img1));
 		electoralJusticeCoat.setBounds(445, 33, 180, 68);
 		votingPanel.add(electoralJusticeCoat);
@@ -313,7 +312,7 @@ public class PrimaryPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("1");
-					voting.SetImage();
+					votingp.SetImage();
 					votingg.SetImageGov();
 				}
 			}
@@ -336,7 +335,7 @@ public class PrimaryPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("2");
-					voting.SetImage();
+					votingp.SetImage();
 					votingg.SetImageGov();
 				}
 			}
@@ -359,7 +358,7 @@ public class PrimaryPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("3");
-					voting.SetImage();
+					votingp.SetImage();
 					votingg.SetImageGov();
 				}
 			}
@@ -383,7 +382,7 @@ public class PrimaryPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("4");
-					voting.SetImage();
+					votingp.SetImage();
 					votingg.SetImageGov();
 				}
 			}
@@ -406,7 +405,7 @@ public class PrimaryPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("5");
-					voting.SetImage();
+					votingp.SetImage();
 					votingg.SetImageGov();
 				}
 			}
@@ -429,7 +428,7 @@ public class PrimaryPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("6");
-					voting.SetImage();
+					votingp.SetImage();
 					votingg.SetImageGov();
 				}
 			}
@@ -452,7 +451,7 @@ public class PrimaryPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("7");
-					voting.SetImage();
+					votingp.SetImage();
 					votingg.SetImageGov();
 				}
 			}
@@ -475,7 +474,7 @@ public class PrimaryPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("8");
-					voting.SetImage();
+					votingp.SetImage();
 					votingg.SetImageGov();
 				}
 			}
@@ -497,7 +496,7 @@ public class PrimaryPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("9");
-					voting.SetImage();
+					votingp.SetImage();
 					votingg.SetImageGov();
 				}
 			}
@@ -520,7 +519,7 @@ public class PrimaryPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (oneBox.getText().equals("")) {
 					oneBox.setText("0");
-					voting.SetImage();
+					votingp.SetImage();
 					votingg.SetImageGov();
 				}
 			}
@@ -558,7 +557,7 @@ public class PrimaryPanel extends JFrame {
 		btnWhite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (office.getText().equals("PRESIDENTE")) {
-					voting.setVote(111);
+					votingp.setVote(111);
 					PresidentVotingResults.Results();
 					ThreadChangeOffice change = new ThreadChangeOffice("Change");
 					change.start();
@@ -587,7 +586,7 @@ public class PrimaryPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if ((!tenBox.getText().equals("")) && (!oneBox.getText().equals("")) && (office.getText().equals("PRESIDENTE"))) {
 					setNumber.SetVote();
-					voting.CountPresidentVotes();
+					votingp.CountPresidentVotes();
 					PresidentVotingResults.Results();
 					ThreadChangeOffice change = new ThreadChangeOffice("Change");
 					change.start();
@@ -610,6 +609,5 @@ public class PrimaryPanel extends JFrame {
 		/**
 		 * end of voting panel settings
 		 **/
-
 	}
 }

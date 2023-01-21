@@ -8,12 +8,14 @@ import entities.President;
 
 public class PresidentVotingResults extends President {
 	
+	public static int confirm, nullVote, blank;
+	
 	public static void Results() {
 		
 		President choice = new President();
 		
 		vote = choice.getVote();
-		confirm = choice.getConfirm();
+		
 		ciroGomes = choice.getCiroGomes();
         lula = choice.getLula();
         robertoJefferson = choice.getRobertoJefferson();
@@ -26,8 +28,6 @@ public class PresidentVotingResults extends President {
         sorayaThronicke = choice.getSorayaThronicke();
         leoPericles = choice.getLeoPericles();
         pabloMarcal = choice.getPabloMarcal();
-        voteNull = choice.getVoteNull();
-        blank = choice.getBlank();
 		
 		switch (vote) {
 		    case 12: ciroGomes++; confirm ++; break;
@@ -43,7 +43,7 @@ public class PresidentVotingResults extends President {
 	        case 80: leoPericles++; confirm ++; break;
 	        case 90: pabloMarcal++; confirm ++; break;
 	        case 111: blank++; confirm++; break;
-	        default: voteNull++; confirm ++; break;
+	        default: nullVote++; confirm ++; break;
         }
 
 		System.out.println(
@@ -62,7 +62,7 @@ public class PresidentVotingResults extends President {
 				+ "\n80 - LÉO PÉRICLES (UP) = ............." + leoPericles
 				+ "\n90 - PABLO MARÇAL (PROS) = ..........." + pabloMarcal
 				+ "\nVotos BRANCOS = ......................" + blank
-				+ "\nVotos NULOS = ........................" + voteNull
+				+ "\nVotos NULOS = ........................" + nullVote
 				+ "\n\n"
 				+ "_______________________________________"
 				+ "\n\n"
@@ -93,7 +93,7 @@ public class PresidentVotingResults extends President {
 					+ "\n80 - LÉO PÉRICLES (UP):" +  "............." + leoPericles
 					+ "\n90 - PABLO MARÇAL (PROS):" +  "..........." + pabloMarcal
 					+ "\nVotos BRANCOS:" +  "......................" + blank
-					+ "\nVotos NULOS:" +  "........................" + voteNull
+					+ "\nVotos NULOS:" +  "........................" + nullVote
 					+ "\n\n"
 					+ "_____________________________________"
 					+ "\n\n"
